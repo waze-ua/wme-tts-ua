@@ -1,13 +1,10 @@
 // ==UserScript==
-// @name         WME TTS test
-// @description  Play TTS
+// @name         WME TTS UA
+// @description  Check TTS speech
 // @version      0.9
 // @author       Vinkoy
-// @include      https://www.waze.com/editor/*
-// @include      https://www.waze.com/*/editor/*
-// @include      https://editor-beta.waze.com/editor/*
-// @include      https://editor-beta.waze.com/*/editor/*
-// @namespace    https://greasyfork.org/en/scripts/23202-wme-tts-test
+// @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
+// @namespace    https://github.com/waze-ua/wme-tts-ua
 // @grant        none
 // ==/UserScript==
 
