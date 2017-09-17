@@ -2,7 +2,7 @@
 // @name         WME TTS UA
 // @description  Check TTS speech
 // @version      0.9
-// @author       Vinkoy
+// @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
 // @grant        none
@@ -83,7 +83,7 @@ function addBtns()
                 var class_style_roundabout = 'class="btn btn-default" style="font-size:24px; width:40px; padding:0px; cursor: pointer;" ';
 
                 var street = Waze.model.streets.get(Waze.selectionManager.selectedItems[0].model.attributes.primaryStreetID);
-                var streetName = 'Безымянный сегмент';
+                var streetName = 'Сегмент без імені';
                 if (typeof street !== "undefined")
                 {
                     if (street.name !== null)
@@ -93,36 +93,36 @@ function addBtns()
                 }
 
 				btnSection.innerHTML = '<div class="form-group">'+
-                    '<h4>TTS Test <sup>' + GM_info.script.version + '</sup>&nbsp;<sub><a href="https://greasyfork.org/en/scripts/23202-wme-tts-test" title="Link" target="_blank"><span class="fa fa-external-link"></span></a></sub></h4>' +
+                    '<h4>WME TTS UA <sup>' + GM_info.script.version + '</sup>&nbsp;<sub><a href="https://github.com/waze-ua/wme-tts-ua" title="Link" target="_blank"><span class="fa fa-external-link"></span></a></sub></h4>' +
 					'<div class="controls-container">' +
                     '</br>' +
                     '<button id="wmettsStreet" class="btn btn-default" title="'+streetName+'"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp;'+streetName+'</button>&nbsp;' +
                     '</br></br>' +
-                    '<button id="wmettsContinue" class="btn btn-default" title="Продолжайте движение около '+minutes_value+' минут"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp;Продолжайте движение около</button>&nbsp;' +
+                    '<button id="wmettsContinue" class="btn btn-default" title="Продовжуйте рух близько '+minutes_value+' хвилин"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp;Продовжуйте рух близько</button>&nbsp;' +
                     '</br>' +
-                    '<input type="number" id="minutes" value="'+minutes_value+'" style="width: 60px; margin-top: 5px;"/>&nbsp; минут' +
+                    '<input type="number" id="minutes" value="'+minutes_value+'" style="width: 60px; margin-top: 5px;"/>&nbsp; хвилин' +
                     '</br>' +
-                    '<button id="wmettsContStraight" class="btn btn-default" title="Продолжайте движение прямо на "><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp;Продолжайте движение прямо на <i>'+streetName+'</i></button>&nbsp;' +
+                    '<button id="wmettsContStraight" class="btn btn-default" title="Продовжуйте рух прямо на "><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp;Продовжуйте рух прямо на <i>'+streetName+'</i></button>&nbsp;' +
                     '</br>' +
-                    '<button id="wmettsUturn" class="btn btn-default" title="Развернитесь на '+streetName+'"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp; Развернитесь на <i>'+streetName+'</i></button>&nbsp;' +
+                    '<button id="wmettsUturn" class="btn btn-default" title="Розверніться на '+streetName+'"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp; Розверніться на <i>'+streetName+'</i></button>&nbsp;' +
                     '</br>' +
-                    '<button id="wmettsGoing" class="btn btn-default" title="поедем по '+streetName+'"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp; Поедем по <i>'+streetName+'</i></button>&nbsp;' +
+                    '<button id="wmettsGoing" class="btn btn-default" title="поїдемо по '+streetName+'"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp; Поїдемо по <i>'+streetName+'</i></button>&nbsp;' +
                     '</br></br>' +
-                    '<label class="control-label">Поверните...</label>' +
-					'<button id="wmettsTL" '+class_style_turn+' title="Поверните налево">←</button>&nbsp;' +
-                    '<button id="wmettsTR" '+class_style_turn+' title="Поверните направо">→</button>&nbsp;' +
+                    '<label class="control-label">Поверніть...</label>' +
+					'<button id="wmettsTL" '+class_style_turn+' title="Поверніть ліворуч">←</button>&nbsp;' +
+                    '<button id="wmettsTR" '+class_style_turn+' title="Поверніть праворуч">→</button>&nbsp;' +
                     '</br></br>' +
-                    '<label class="control-label">Держитесь...</label>' +
-                    '<button id="wmettsKL" '+class_style_keep+' title="Держитесь левее">↖</button>&nbsp;' +
-                    '<button id="wmettsKR" '+class_style_keep+' title="Держитесь правее">↗</button>&nbsp;' +
+                    '<label class="control-label">Тримайтесь...</label>' +
+                    '<button id="wmettsKL" '+class_style_keep+' title="Тримайтесь лівіше">↖</button>&nbsp;' +
+                    '<button id="wmettsKR" '+class_style_keep+' title="Тримайтесь правіше">↗</button>&nbsp;' +
                     '</br></br>' +
-                    '<label class="control-label">Съезд...</label>' +
-                    '<button id="wmettsEL" '+class_style_exit+' title="Съезд слева">↖</button>&nbsp;' +
-                    '<button id="wmettsER" '+class_style_exit+' title="Съезд справа">↗</button>&nbsp;' +
+                    '<label class="control-label">З\'їзд...</label>' +
+                    '<button id="wmettsEL" '+class_style_exit+' title="З\'їзд ліворуч">↖</button>&nbsp;' +
+                    '<button id="wmettsER" '+class_style_exit+' title="З\'їзд праворуч">↗</button>&nbsp;' +
                     '</br></br>' +
-                    '<label class="control-label">Съезд на кольце...</label>' +
-                    '<button id="wmettsRND" '+class_style_roundabout+' title="На кольце '+round_exit_value+' съезд">☼</button>&nbsp;' +
-                    '<input type="number" id="round_exit" value="'+round_exit_value+'" min="1" max="7" style="width: 60px; margin-top: 5px;"/>&nbsp; съезд' +
+                    '<label class="control-label">З\'їзд з кільця...</label>' +
+                    '<button id="wmettsRND" '+class_style_roundabout+' title="На кільці '+round_exit_value+' зїзд">☼</button>&nbsp;' +
+                    '<input type="number" id="round_exit" value="'+round_exit_value+'" min="1" max="7" style="width: 60px; margin-top: 5px;"/>&nbsp; зїзд' +
 					'</div></div>';
 
 				btnSection.className = "tab-pane";
@@ -179,7 +179,7 @@ function addBtns()
 				navTabs.appendChild(newtab);
 
                 var venue = Waze.selectionManager.selectedItems[0].model.attributes.name;
-                var poiName = 'ПОИ БЕЗ ИМЕНИ';
+                var poiName = 'ПОІ БЕЗ ІМЕНІ';
                 if (Waze.selectionManager.selectedItems[0].model.attributes.name !== "")
                 {
                     poiName = Waze.selectionManager.selectedItems[0].model.attributes.name;
@@ -187,7 +187,7 @@ function addBtns()
 
 
 				btnSection.innerHTML = '<div class="form-group">'+
-                    '<h4>TTS Test <sup>' + GM_info.script.version + '</sup>&nbsp;<sub><a href="https://greasyfork.org/en/scripts/23202-wme-tts-test" title="Link" target="_blank"><span class="fa fa-external-link"></span></a></sub></h4>' +
+                    '<h4>WME TTS UA <sup>' + GM_info.script.version + '</sup>&nbsp;<sub><a href="https://github.com/waze-ua/wme-tts-ua/" title="Link" target="_blank"><span class="fa fa-external-link"></span></a></sub></h4>' +
 					'<div class="controls-container">' +
                     '</br>' +
                     '<button id="wmettsStreet" class="btn btn-default" title="'+poiName+'"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp;'+poiName+'</button>&nbsp;' +
@@ -269,7 +269,7 @@ function playTTS()
     {
         if (Waze.selectionManager.selectedItems.length != 1)
         {
-            alert('Выберите только один сегмент');
+            alert('Виберіть тільки один сегмент');
             return;
         }
 
@@ -278,7 +278,7 @@ function playTTS()
         {
             if (street.name === null)
             {
-                alert('Безымянный сегмент');
+                alert('Сегмент без імені');
                 return;
             }
             else
@@ -304,70 +304,70 @@ function playTTS()
         preText = ' ';
         break;
     case 'wmettsContinue':
-        preText = 'продолжайте движение около ';
+        preText = 'продовжуйте рух близько ';
         var minutes;
         if (document.getElementById('minutes') !== null )
-            minutes = minutes_value + ' мин. до ';
+            minutes = minutes_value + ' хвилин до ';
         else
-            minutes = '20 мин. до ';
+            minutes = '20 хвилин до ';
         ttsName = minutes + ttsName;
         break;
     case 'wmettsContStraight':
-        preText = 'продолжайте движение прямо на ';
+        preText = 'продовжуйте рух прямо на ';
         break;
     case 'wmettsTL':
-        preText = 'поверните налево на ';
+        preText = 'поверніть ліворуч на ';
         break;
     case 'wmettsTR':
-        preText = 'поверните направо на ';
+        preText = 'поверніть праворуч на ';
         break;
     case 'wmettsKL':
-        preText = 'держитесь левее на ';
+        preText = 'тримайтеся лівіше на ';
         break;
     case 'wmettsKR':
-        preText = 'держитесь правее на ';
+        preText = 'тримайтеся правіше на ';
         break;
     case 'wmettsEL':
-        preText = 'съезд слева на ';
+        preText = 'з\'їзд ліворуч на ';
         break;
     case 'wmettsER':
-        preText = 'съезд справа на ';
+        preText = 'з\'їзд праворуч на ';
         break;
     case 'wmettsUturn':
-        preText = 'развернитесь на ';
+        preText = 'розверніться на ';
         break;
     case 'wmettsGoing':
-        preText = 'Поедем по ';
+        preText = 'Поїдемо по ';
         break;
     case 'wmettsRND':
         var round_exit_text;
         switch (round_exit_value)
         {
         case '1':
-            round_exit_text = 'первый';
+            round_exit_text = 'перший';
             break;
         case '2':
-            round_exit_text = 'второй';
+            round_exit_text = 'другий';
             break;
         case '3':
-            round_exit_text = 'третий';
+            round_exit_text = 'третій';
             break;
         case '4':
-            round_exit_text = 'четвёртый';
+            round_exit_text = 'четвертий';
             break;
         case '5':
-            round_exit_text = 'пятый';
+            round_exit_text = 'п\'ятий';
             break;
         case '6':
-            round_exit_text = 'шестой';
+            round_exit_text = 'шостий';
             break;
         case '7':
-            round_exit_text = 'седьмой';
+            round_exit_text = 'сьомий';
             break;
         default:
-            round_exit_text = 'первый';
+            round_exit_text = 'перший';
         }
-        preText = 'на кольце '+round_exit_text+' съезд на ';
+        preText = 'на кільці '+round_exit_text+' з\'їзд на ';
         break;
     default:
         alert("Unknown error");
@@ -375,7 +375,7 @@ function playTTS()
 
     if (preText !== '')
     {
-    new Audio('https://ttsgw.world.waze.com/TTSGateway/Text2SpeechServlet?text='+preText+ttsName+'&lang=ru-RU&lon=0&lat=0&version=6&protocol=2&sessionid=12345654321&content_type=audio%2Fmpeg&type=street&validate_data=positive&skipCache=true').play();
+    new Audio('https://ttsgw.world.waze.com/TTSGateway/Text2SpeechServlet?text='+preText+ttsName+'&lang=uk&lon=0&lat=0&version=6&protocol=2&sessionid=12345654321&content_type=audio%2Fmpeg&type=street&validate_data=positive&skipCache=true').play();
     }
 }
 
@@ -417,29 +417,29 @@ function playTTSHand()
 function TTStest_initBindKey()
 {
 	var Config =[
-        {handler: 'wmettsStreet',   title: 'Имя сегмента/ПОИ',           func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsStreet'}},
-        {handler: 'wmettsContinue', title: 'Продолжайте движение', func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsContinue'}},
-        {handler: 'wmettsContStraight', title: 'Продолжайте движение', func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsContStraight'}},
-		{handler: 'wmettsTL',       title: 'Поверните налево на',        func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsTL'}},
-		{handler: 'wmettsTR',       title: 'Поверните направо на',       func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsTR'}},
-		{handler: 'wmettsKL',       title: 'Держитесь левее на',         func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsKL'}},
-		{handler: 'wmettsKR',       title: 'Держитесь правее на',        func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsKR'}},
-		{handler: 'wmettsEL',       title: 'Съезд слева на',             func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsEL'}},
-		{handler: 'wmettsER',       title: 'Съезд справа на',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsER'}},
-		{handler: 'wmettsUturn',    title: 'Развернитесь на',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsUturn'}},
-		{handler: 'wmettsGoing',    title: 'Поедем по',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsGoing'}},
-		{handler: 'wmettsRND',      title: 'На кольце первый съезд на',  func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsRND'}},
+        {handler: 'wmettsStreet',   title: 'Ім\'я сенгмента/ПОІ',           func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsStreet'}},
+        {handler: 'wmettsContinue', title: 'Продовжуйте рух', func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsContinue'}},
+        {handler: 'wmettsContStraight', title: 'Продовжуйте рух', func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsContStraight'}},
+		{handler: 'wmettsTL',       title: 'Поверніть ліворуч на',        func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsTL'}},
+		{handler: 'wmettsTR',       title: 'Поверніть праворуч на',       func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsTR'}},
+		{handler: 'wmettsKL',       title: 'Тримайтеся лівіше на',         func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsKL'}},
+		{handler: 'wmettsKR',       title: 'Тримайтеся правіше на',        func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsKR'}},
+		{handler: 'wmettsEL',       title: 'З\'їзд ліворуч на',             func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsEL'}},
+		{handler: 'wmettsER',       title: 'З\'їзд праворуч на',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsER'}},
+		{handler: 'wmettsUturn',    title: 'Розверніться на',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsUturn'}},
+		{handler: 'wmettsGoing',    title: 'Поїдемо по',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsGoing'}},
+		{handler: 'wmettsRND',      title: 'На кільці перший з\'їзд на',  func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsRND'}},
 	];
 
 	for(var i=0; i < Config.length; ++i)
 	{
-		WMEKSRegisterKeyboardShortcut('WME TTS test', 'WME TTS test', Config[i].handler, Config[i].title, Config[i].func, Config[i].key, Config[i].arg);
+		WMEKSRegisterKeyboardShortcut('WME TTS UA', 'WME TTS UA', Config[i].handler, Config[i].title, Config[i].func, Config[i].key, Config[i].arg);
 	}
 
-    WMEKSLoadKeyboardShortcuts('WME TTS test');
+    WMEKSLoadKeyboardShortcuts('WME TTS UA');
 
 	window.addEventListener("beforeunload", function() {
-		WMEKSSaveKeyboardShortcuts('WME TTS test');
+		WMEKSSaveKeyboardShortcuts('WME TTS UA');
 	}, false);
 }
 
