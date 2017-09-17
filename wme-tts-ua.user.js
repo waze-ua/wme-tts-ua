@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TTS UA
 // @description  Check TTS speech
-// @version      0.9
+// @version      0.10
 // @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
@@ -102,7 +102,7 @@ function addBtns()
                     '</br>' +
                     '<input type="number" id="minutes" value="'+minutes_value+'" style="width: 60px; margin-top: 5px;"/>&nbsp; хвилин' +
                     '</br>' +
-                    '<button id="wmettsContStraight" class="btn btn-default" title="Продовжуйте рух прямо на "><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp;Продовжуйте рух прямо на <i>'+streetName+'</i></button>&nbsp;' +
+                    '<button id="wmettsContStraight" class="btn btn-default" title="Продовжуйте рух прямо до "><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp;Продовжуйте рух прямо до <i>'+streetName+'</i></button>&nbsp;' +
                     '</br>' +
                     '<button id="wmettsUturn" class="btn btn-default" title="Розверніться на '+streetName+'"><i class="fa fa-volume-up" style="font-size:16px;"></i>&nbsp;&nbsp; Розверніться на <i>'+streetName+'</i></button>&nbsp;' +
                     '</br>' +
@@ -313,25 +313,25 @@ function playTTS()
         ttsName = minutes + ttsName;
         break;
     case 'wmettsContStraight':
-        preText = 'продовжуйте рух прямо на ';
+        preText = 'продовжуйте рух прямо до ';
         break;
     case 'wmettsTL':
-        preText = 'поверніть ліворуч на ';
+        preText = 'поверніть ліворуч до ';
         break;
     case 'wmettsTR':
-        preText = 'поверніть праворуч на ';
+        preText = 'поверніть праворуч до ';
         break;
     case 'wmettsKL':
-        preText = 'тримайтеся лівіше на ';
+        preText = 'тримайтесь лівіше до ';
         break;
     case 'wmettsKR':
-        preText = 'тримайтеся правіше на ';
+        preText = 'тримайтесь правіше до ';
         break;
     case 'wmettsEL':
-        preText = 'з\'їзд ліворуч на ';
+        preText = 'з\'їзд ліворуч до ';
         break;
     case 'wmettsER':
-        preText = 'з\'їзд праворуч на ';
+        preText = 'з\'їзд праворуч до ';
         break;
     case 'wmettsUturn':
         preText = 'розверніться на ';
@@ -367,7 +367,7 @@ function playTTS()
         default:
             round_exit_text = 'перший';
         }
-        preText = 'на кільці '+round_exit_text+' з\'їзд на ';
+        preText = 'на кільці '+round_exit_text+' з\'їзд до ';
         break;
     default:
         alert("Unknown error");
@@ -420,15 +420,15 @@ function TTStest_initBindKey()
         {handler: 'wmettsStreet',   title: 'Ім\'я сенгмента/ПОІ',           func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsStreet'}},
         {handler: 'wmettsContinue', title: 'Продовжуйте рух', func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsContinue'}},
         {handler: 'wmettsContStraight', title: 'Продовжуйте рух', func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsContStraight'}},
-		{handler: 'wmettsTL',       title: 'Поверніть ліворуч на',        func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsTL'}},
-		{handler: 'wmettsTR',       title: 'Поверніть праворуч на',       func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsTR'}},
-		{handler: 'wmettsKL',       title: 'Тримайтеся лівіше на',         func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsKL'}},
-		{handler: 'wmettsKR',       title: 'Тримайтеся правіше на',        func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsKR'}},
-		{handler: 'wmettsEL',       title: 'З\'їзд ліворуч на',             func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsEL'}},
-		{handler: 'wmettsER',       title: 'З\'їзд праворуч на',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsER'}},
+		{handler: 'wmettsTL',       title: 'Поверніть ліворуч до',        func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsTL'}},
+		{handler: 'wmettsTR',       title: 'Поверніть праворуч до',       func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsTR'}},
+		{handler: 'wmettsKL',       title: 'Тримайтесь лівіше до',         func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsKL'}},
+		{handler: 'wmettsKR',       title: 'Тримайтесь правіше до',        func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsKR'}},
+		{handler: 'wmettsEL',       title: 'З\'їзд ліворуч до',             func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsEL'}},
+		{handler: 'wmettsER',       title: 'З\'їзд праворуч до',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsER'}},
 		{handler: 'wmettsUturn',    title: 'Розверніться на',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsUturn'}},
 		{handler: 'wmettsGoing',    title: 'Поїдемо по',            func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsGoing'}},
-		{handler: 'wmettsRND',      title: 'На кільці перший з\'їзд на',  func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsRND'}},
+		{handler: 'wmettsRND',      title: 'На кільці перший з\'їзд до',  func:playTTSHand, key:-1, arg:{type:'click',id:'wmettsRND'}},
 	];
 
 	for(var i=0; i < Config.length; ++i)
