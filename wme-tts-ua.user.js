@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TTS UA
 // @description  Check TTS speech
-// @version      0.12
+// @version      0.13
 // @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
@@ -14,40 +14,15 @@
 
     function TTStest_bootstrap()
     {
-        var oWaze=Window.Waze;
-        var oI18n=Window.I18n;
+        var oWaze=Waze;
+        var oI18n=I18n;
 
-        if (typeof unsafeWindow !== "undefined")
-        {
-            oWaze=unsafeWindow.Waze;
-            oI18n=unsafeWindow.I18n;
-        }
-
-        if (typeof oWaze === "undefined")
+        if (!oWaze || !oWaze.map || !oWaze.selectionManager || !oI18n || !oI18n.translations)
         {
             setTimeout(TTStest_bootstrap, 500);
             return;
         }
-        if (typeof oWaze.map === "undefined")
-        {
-            setTimeout(TTStest_bootstrap, 500);
-            return;
-        }
-        if (typeof oWaze.selectionManager === "undefined")
-        {
-            setTimeout(TTStest_bootstrap, 500);
-            return;
-        }
-        if (typeof oI18n === "undefined")
-        {
-            setTimeout(TTStest_bootstrap, 500);
-            return;
-        }
-        if (typeof oI18n.translations === "undefined")
-        {
-            setTimeout(TTStest_bootstrap, 500);
-            return;
-        }
+        console.log("WME TTS UA: Ready to work!");
 
         Waze.selectionManager.events.register("selectionchanged", null, addBtns);
         setTimeout(TTStest_initBindKey, 500);
@@ -396,10 +371,8 @@
         return a;
     }
 
-
+    console.log("WME TTS UA: Waiting for Waze.");
     TTStest_bootstrap();
-
-
 
     // ------------------------------
     function playTTSHand()
