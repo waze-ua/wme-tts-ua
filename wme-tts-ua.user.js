@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TTS UA
 // @description  Check TTS speech
-// @version      0.11
+// @version      0.12
 // @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
@@ -380,7 +380,8 @@
 
         if (preText !== '')
         {
-            new Audio('https://ttsgw.world.waze.com/TTSGateway/Text2SpeechServlet?text='+preText+ttsName+'&lang=uk&lon=0&lat=0&version=6&protocol=2&sessionid=12345654321&content_type=audio%2Fmpeg&type=street&validate_data=positive&skipCache=true').play();
+			// Make sure LON & LAT are pointing at your country
+			new Audio('https://ttsgw.world.waze.com/TTSGateway/Text2SpeechServlet?text='+preText+ttsName+'&lang=uk&lon=28.668631&lat=50.264148&version=6&protocol=2&sessionid=12345654321&content_type=audio%2Fmpeg&type=street&validate_data=positive&skipCache=true').play();
         }
     }
 
