@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TTS UA
-// @description  Check TTS speech for Ukraine
-// @version      0.15
+// @description  Check TTS speech for Ukrainian streets
+// @version      0.16
 // @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
