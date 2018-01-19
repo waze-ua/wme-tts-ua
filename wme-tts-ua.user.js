@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         WME TTS UA
-// @description  Check TTS speech
-// @version      0.13
+// @description  Check TTS speech for Ukraine
+// @version      0.14
 // @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
+// @updateURL	 https://greasyfork.org/scripts/37598-wme-tts-ua/code/WME%20TTS%20UA.user.js
 // @grant        none
 // ==/UserScript==
 
