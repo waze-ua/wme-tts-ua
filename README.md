@@ -1,2 +1,2 @@
 # wme-tts-ua
-Check TTS speech
+Script checks TTS speech for streets of Ukrane.
