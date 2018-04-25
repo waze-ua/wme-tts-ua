@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TTS UA
 // @description  Check TTS speech for Ukrainian streets
-// @version      0.16
+// @version      0.17
 // @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
@@ -10,12 +10,13 @@
 // ==/UserScript==
 
 (function() {
+    var script_id = "WME-test-tts";
     var minutes_value = 20;
     var round_exit_value = 1;
 
     function TTStest_bootstrap()
     {
-        var oWaze=Waze;
+        var oWaze=W;
         var oI18n=I18n;
 
         if (!oWaze || !oWaze.map || !oWaze.selectionManager || !oI18n || !oI18n.translations)
@@ -25,16 +26,16 @@
         }
         console.log("WME TTS UA: Ready to work!");
 
-        Waze.selectionManager.events.register("selectionchanged", null, addBtns);
+        oWaze.selectionManager.events.register("selectionchanged", null, addBtns);
         setTimeout(TTStest_initBindKey, 500);
     }
 
     function addBtns()
     {
-        if(!document.getElementById("WME-test-tts") && Waze.selectionManager.selectedItems.length > 0 && Waze.selectionManager.selectedItems[0].model.type === 'segment')
+        if(!document.getElementById(script_id) && W.selectionManager.getSelectedFeatures().length > 0 && W.selectionManager.getSelectedFeatures()[0].model.type === 'segment')
         {
             var btnSection = document.createElement('div');
-            btnSection.id = "WME-test-tts";
+            btnSection.id = script_id;
             var userTabs = document.getElementById('edit-panel');
             if (!(userTabs && getElementsByClassName('nav-tabs', userTabs)))
                 return;
@@ -50,7 +51,7 @@
                 if (typeof tabContent !== "undefined")
                 {
                     newtab = document.createElement('li');
-                    newtab.innerHTML = '<a href="#WME-test-tts" id="wmettstest" data-toggle="tab">TTS <i class="fa fa-lock" id="wmetts_lock"></i></a>';
+                    newtab.innerHTML = '<a href="#' + script_id + '" id="wmettstest" data-toggle="tab">TTS <i class="fa fa-lock" id="wmetts_lock"></i></a>';
                     navTabs.appendChild(newtab);
 
                     var class_style_turn = 'class="btn btn-default" style="font-size:18px; width:40px; padding:0px; background-color: #4CC600; cursor: pointer;" ';
@@ -58,7 +59,7 @@
                     var class_style_exit = 'class="btn btn-default" style="font-size:18px; width:40px; padding:0px; background-color: #6CB5FF; cursor: pointer;" ';
                     var class_style_roundabout = 'class="btn btn-default" style="font-size:24px; width:40px; padding:0px; cursor: pointer;" ';
 
-                    var street = Waze.model.streets.get(Waze.selectionManager.selectedItems[0].model.attributes.primaryStreetID);
+                    var street = W.model.streets.get(W.selectionManager.getSelectedFeatures()[0].model.attributes.primaryStreetID);
                     var streetName = 'Сегмент без імені';
                     if (typeof street !== "undefined")
                     {
@@ -132,10 +133,10 @@
                 };
             }
         }
-        else if ( !document.getElementById("WME-test-tts") && Waze.selectionManager.selectedItems.length > 0 && Waze.selectionManager.selectedItems[0].model.type == "venue" )
+        else if ( !document.getElementById(script_id) && W.selectionManager.getSelectedFeatures().length > 0 && W.selectionManager.getSelectedFeatures()[0].model.type == "venue" )
         {
             var btnSection = document.createElement('div');
-            btnSection.id = "WME-test-tts";
+            btnSection.id = script_id;
             var userTabs = document.getElementById('edit-panel');
             if (!(userTabs && getElementsByClassName('nav-tabs', userTabs)))
                 return;
@@ -151,14 +152,14 @@
                 if (typeof tabContent !== "undefined")
                 {
                     newtab = document.createElement('li');
-                    newtab.innerHTML = '<a href="#WME-test-tts" id="wmettstest" data-toggle="tab">TTS <i class="fa fa-lock" id="wmetts_lock"></i></a>';
+                    newtab.innerHTML = '<a href="#' + script_id + '" id="wmettstest" data-toggle="tab">TTS <i class="fa fa-lock" id="wmetts_lock"></i></a>';
                     navTabs.appendChild(newtab);
 
-                    var venue = Waze.selectionManager.selectedItems[0].model.attributes.name;
+                    var venue = W.selectionManager.getSelectedFeatures()[0].model.attributes.name;
                     var poiName = 'ПОІ БЕЗ ІМЕНІ';
-                    if (Waze.selectionManager.selectedItems[0].model.attributes.name !== "")
+                    if (W.selectionManager.getSelectedFeatures()[0].model.attributes.name !== "")
                     {
-                        poiName = Waze.selectionManager.selectedItems[0].model.attributes.name;
+                        poiName = W.selectionManager.getSelectedFeatures()[0].model.attributes.name;
                     }
 
 
@@ -196,15 +197,20 @@
             }
         }
 
-        if(document.getElementById("WME-test-tts"))
+        if (document.getElementById(script_id))
         {
-            if (Waze.selectionManager.selectedItems.length > 0)
+            var selectedItems = W.selectionManager.getSelectedFeatures();
+            if (selectedItems.length > 0)
             {
                 var disabledButton=false;
-                var model=Waze.selectionManager.selectedItems[0].model;
+                var model=selectedItems[0].model;
+                var addrAttr = model.getAddress().attributes;
 
-                if ((model.type !== 'segment' || !(model.getAddress().hasOwnProperty('street') && model.getAddress().street !== null && model.getAddress().street.name !== null)) && (model.type !== 'venue' || model.attributes.name === ""))
-                    disabledButton=true;
+                if ((model.type !== 'segment' ||
+                     !(addrAttr.hasOwnProperty('street') && addrAttr.street !== null && addrAttr.street.name !== null)) && (model.type !== 'venue' || model.attributes.name === ""))
+                {
+                    disabledButton = true;
+                }
 
                 var lock=document.getElementById('wmetts_lock');
                 if (lock)
@@ -241,15 +247,15 @@
     function playTTS()
     {
         var ttsName = '';
-        if (Waze.selectionManager.selectedItems[0].model.type === 'segment' )
+        if (W.selectionManager.getSelectedFeatures()[0].model.type === 'segment' )
         {
-            if (Waze.selectionManager.selectedItems.length != 1)
+            if (W.selectionManager.getSelectedFeatures().length != 1)
             {
                 alert('Виберіть тільки один сегмент');
                 return;
             }
 
-            var street = Waze.model.streets.get(Waze.selectionManager.selectedItems[0].model.attributes.primaryStreetID);
+            var street = W.model.streets.get(W.selectionManager.getSelectedFeatures()[0].model.attributes.primaryStreetID);
             if (typeof street !== "undefined")
             {
                 if (street.name === null)
@@ -268,9 +274,9 @@
                 return;
             }
         }
-        else if (Waze.selectionManager.selectedItems[0].model.type === 'venue')
+        else if (W.selectionManager.getSelectedFeatures()[0].model.type === 'venue')
         {
-            ttsName = Waze.selectionManager.selectedItems[0].model.attributes.name;
+            ttsName = W.selectionManager.getSelectedFeatures()[0].model.attributes.name;
         }
 
         var preText = '';
@@ -436,7 +442,7 @@ the command to add links is WMERegisterKeyboardShortcut(ScriptName, ShortcutsHea
 	ShortcutKeysObj: the is the object representing the keys watched set this to '-1' to let the users specify their own shortcuts.
 	ShortcutKeysObj: The alt, shift, and ctrl keys are A=alt, S=shift, C=ctrl. for short cut to use "alt shift ctrl and l" the object would be 'ASC+l'
 */
-    function WMEKSRegisterKeyboardShortcut(e,r,t,a,o,s,c){try{I18n.translations[I18n.locale].keyboard_shortcuts.groups[e].members.length}catch(n){Waze.accelerators.Groups[e]=[],Waze.accelerators.Groups[e].members=[],I18n.translations[I18n.locale].keyboard_shortcuts.groups[e]=[],I18n.translations[I18n.locale].keyboard_shortcuts.groups[e].description=r,I18n.translations[I18n.locale].keyboard_shortcuts.groups[e].members=[]}if(o&&"function"==typeof o){I18n.translations[I18n.locale].keyboard_shortcuts.groups[e].members[t]=a,Waze.accelerators.addAction(t,{group:e});var l="-1",i={};i[l]=t,Waze.accelerators._registerShortcuts(i),null!==s&&(i={},i[s]=t,Waze.accelerators._registerShortcuts(i)),W.accelerators.events.register(t,null,function(){o(c)})}else alert("The function "+o+" has not been declared")}function WMEKSLoadKeyboardShortcuts(e){if(localStorage[e+"KBS"])for(var r=JSON.parse(localStorage[e+"KBS"]),t=0;t<r.length;t++)Waze.accelerators._registerShortcuts(r[t])}function WMEKSSaveKeyboardShortcuts(e){var r=[];for(var t in Waze.accelerators.Actions){var a="";if(Waze.accelerators.Actions[t].group==e){Waze.accelerators.Actions[t].shortcut?(Waze.accelerators.Actions[t].shortcut.altKey===!0&&(a+="A"),Waze.accelerators.Actions[t].shortcut.shiftKey===!0&&(a+="S"),Waze.accelerators.Actions[t].shortcut.ctrlKey===!0&&(a+="C"),""!==a&&(a+="+"),Waze.accelerators.Actions[t].shortcut.keyCode&&(a+=Waze.accelerators.Actions[t].shortcut.keyCode)):a="-1";var o={};o[a]=Waze.accelerators.Actions[t].id,r[r.length]=o}}localStorage[e+"KBS"]=JSON.stringify(r)}
+    function WMEKSRegisterKeyboardShortcut(e,r,t,a,o,s,c){try{I18n.translations[I18n.locale].keyboard_shortcuts.groups[e].members.length}catch(n){W.accelerators.Groups[e]=[],W.accelerators.Groups[e].members=[],I18n.translations[I18n.locale].keyboard_shortcuts.groups[e]=[],I18n.translations[I18n.locale].keyboard_shortcuts.groups[e].description=r,I18n.translations[I18n.locale].keyboard_shortcuts.groups[e].members=[]}if(o&&"function"==typeof o){I18n.translations[I18n.locale].keyboard_shortcuts.groups[e].members[t]=a,W.accelerators.addAction(t,{group:e});var l="-1",i={};i[l]=t,W.accelerators._registerShortcuts(i),null!==s&&(i={},i[s]=t,W.accelerators._registerShortcuts(i)),W.accelerators.events.register(t,null,function(){o(c)})}else alert("The function "+o+" has not been declared")}function WMEKSLoadKeyboardShortcuts(e){if(localStorage[e+"KBS"])for(var r=JSON.parse(localStorage[e+"KBS"]),t=0;t<r.length;t++)W.accelerators._registerShortcuts(r[t])}function WMEKSSaveKeyboardShortcuts(e){var r=[];for(var t in W.accelerators.Actions){var a="";if(W.accelerators.Actions[t].group==e){W.accelerators.Actions[t].shortcut?(W.accelerators.Actions[t].shortcut.altKey===!0&&(a+="A"),W.accelerators.Actions[t].shortcut.shiftKey===!0&&(a+="S"),W.accelerators.Actions[t].shortcut.ctrlKey===!0&&(a+="C"),""!==a&&(a+="+"),W.accelerators.Actions[t].shortcut.keyCode&&(a+=W.accelerators.Actions[t].shortcut.keyCode)):a="-1";var o={};o[a]=W.accelerators.Actions[t].id,r[r.length]=o}}localStorage[e+"KBS"]=JSON.stringify(r)}
     /* ********************************************************** */
 
 })();
