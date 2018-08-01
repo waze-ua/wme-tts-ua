@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TTS UA
 // @description  Check TTS speech for Ukrainian streets
-// @version      0.17
+// @version      2018.08.01.001
 // @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
@@ -59,7 +59,7 @@
                     var class_style_exit = 'class="btn btn-default" style="font-size:18px; width:40px; padding:0px; background-color: #6CB5FF; cursor: pointer;" ';
                     var class_style_roundabout = 'class="btn btn-default" style="font-size:24px; width:40px; padding:0px; cursor: pointer;" ';
 
-                    var street = W.model.streets.get(W.selectionManager.getSelectedFeatures()[0].model.attributes.primaryStreetID);
+                    var street = W.model.streets.getObjectById(W.selectionManager.getSelectedFeatures()[0].model.attributes.primaryStreetID);
                     var streetName = 'Сегмент без імені';
                     if (typeof street !== "undefined")
                     {
@@ -255,7 +255,7 @@
                 return;
             }
 
-            var street = W.model.streets.get(W.selectionManager.getSelectedFeatures()[0].model.attributes.primaryStreetID);
+            var street = W.model.streets.getObjectById(W.selectionManager.getSelectedFeatures()[0].model.attributes.primaryStreetID);
             if (typeof street !== "undefined")
             {
                 if (street.name === null)
