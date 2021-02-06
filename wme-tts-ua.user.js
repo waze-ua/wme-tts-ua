@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME TTS UA
 // @description  Check TTS speech for Ukrainian streets
-// @version      2018.08.01.001
+// @version      2021.02.06.001
 // @author       Vinkoy, turbopirate
 // @include      /^https:\/\/(www|beta)\.waze\.com(\/\w{2,3}|\/\w{2,3}-\w{2,3}|\/\w{2,3}-\w{2,3}-\w{2,3})?\/editor\b/
 // @namespace    https://github.com/waze-ua/wme-tts-ua
@@ -61,9 +61,9 @@
 
                     var street = W.model.streets.getObjectById(W.selectionManager.getSelectedFeatures()[0].model.attributes.primaryStreetID);
                     var streetName = 'Сегмент без імені';
-                    if (typeof street !== "undefined")
+                    if (street)
                     {
-                        if (street.name !== null)
+                        if (street.name)
                         {
                             streetName = street.name;
                         }
